@@ -32,7 +32,7 @@ fetch(url).then((response) => response.json())
         html += `<div class="profile-box" data-category="${item.category}">
                     <div class="profile-image">${profileImage}</div>
                     <h3 class="mb-10">${item.fname} ${item.lname}</h3>
-                    <h4>${item.category}</h4>
+                    <h4 class="category" data-category="${item.category}">${item.category}</h4>
                 </div>`;
     });
     document.getElementById('people-list').innerHTML = html;
@@ -44,6 +44,7 @@ fetch(url).then((response) => response.json())
             items[i].classList.add('show')
         }, i * delay)
     }
+    categoryClick();
 });
 
 
@@ -79,6 +80,20 @@ tags.forEach(el => el.addEventListener('click', event => {
         }
     }
 }));
+
+//Category click
+function categoryClick(){
+    let categoriesElements = document.querySelectorAll(".category");
+    categoriesElements.forEach(el => el.addEventListener('click', event => {
+        let category = event.target.getAttribute('data-category');
+        console.log(category)
+        if(category && document.querySelectorAll(".tag[data-category='"+category+"']")){
+            document.querySelectorAll(".tag[data-category='"+category+"']")[0].click();
+        }
+        
+    }));
+}
+
 
 
 
